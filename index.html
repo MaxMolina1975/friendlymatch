@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendly Match - Autism-Friendly Kids Game</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Loading...</p>
+            </div>
+        </div>
+        
+        <div id="main-menu" class="screen active">
+            <div class="menu-header">
+                <h1 class="game-title">🌟 Friendly Match</h1>
+                <p class="game-subtitle" data-translate="subtitle">A gentle learning game for wonderful kids</p>
+            </div>
+            
+            <div class="menu-buttons">
+                <button id="play-btn" class="menu-btn primary" data-translate="play">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">Play Game</span>
+                </button>
+                
+                <button id="settings-btn" class="menu-btn secondary" data-translate="settings">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-text">Settings</span>
+                </button>
+                
+                <button id="progress-btn" class="menu-btn secondary" data-translate="progress">
+                    <span class="btn-icon">📈</span>
+                    <span class="btn-text">Progress</span>
+                </button>
+            </div>
+            
+            <div class="menu-footer">
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="en">🇺🇸 EN</button>
+                    <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+                    <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+                    <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings-screen" class="screen">
+            <div class="settings-header">
+                <button id="back-to-menu" class="back-btn">←</button>
+                <h2 data-translate="settings">Settings</h2>
+            </div>
+            
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label class="setting-label" data-translate="sound">Sound Effects</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="sound-toggle" checked>
+                        <label for="sound-toggle" class="toggle-slider"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label" data-translate="colorblind">Color-Blind Friendly</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="colorblind-toggle">
+                        <label for="colorblind-toggle" class="toggle-slider"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label" data-translate="difficulty">Difficulty</label>
+                    <select id="difficulty-select" class="difficulty-selector">
+                        <option value="easy" data-translate="easy">Easy</option>
+                        <option value="normal" data-translate="normal" selected>Normal</option>
+                        <option value="adaptive" data-translate="adaptive">Adaptive</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="game-info">
+                    <div class="score-container">
+                        <span class="score-label" data-translate="score">Score:</span>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="level-container">
+                        <span class="level-label" data-translate="level">Level:</span>
+                        <span id="level">1</span>
+                    </div>
+                    <div class="stars-container">
+                        <span id="stars">⭐⭐⭐</span>
+                    </div>
+                </div>
+                <button id="pause-btn" class="pause-btn">⏸️</button>
+            </div>
+            
+            <div class="game-content">
+                <div class="instruction-text">
+                    <p id="instruction" data-translate="instruction">Tap the matching items!</p>
+                </div>
+                
+                <div class="game-area">
+                    <div id="target-item" class="target-item">
+                        <div class="target-label" data-translate="find">Find:</div>
+                        <div id="target-display" class="target-display"></div>
+                    </div>
+                    
+                    <div id="game-grid" class="game-grid"></div>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pause-screen" class="screen overlay">
+            <div class="pause-content">
+                <h2 data-translate="paused">Game Paused</h2>
+                <div class="pause-buttons">
+                    <button id="resume-btn" class="menu-btn primary" data-translate="resume">Resume</button>
+                    <button id="restart-btn" class="menu-btn secondary" data-translate="restart">Restart</button>
+                    <button id="home-btn" class="menu-btn secondary" data-translate="home">Home</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="celebration-overlay" class="celebration-overlay">
+            <div class="celebration-content">
+                <div class="celebration-text">
+                    <h2 id="celebration-title">Great Job! 🎉</h2>
+                    <p id="celebration-message">You found the match!</p>
+                </div>
+                <div class="confetti"></div>
+            </div>
+        </div>
+
+        <div id="progress-screen" class="screen">
+            <div class="progress-header">
+                <button id="back-to-menu-progress" class="back-btn">←</button>
+                <h2 data-translate="progress">Your Progress</h2>
+            </div>
+            
+            <div class="progress-content">
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-value" id="total-score">0</div>
+                        <div class="stat-label" data-translate="total-score">Total Score</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-value" id="games-played">0</div>
+                        <div class="stat-label" data-translate="games-played">Games Played</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-value" id="total-stars">0</div>
+                        <div class="stat-label" data-translate="total-stars">Stars Earned</div>
+                    </div>
+                </div>
+                
+                <div class="achievements">
+                    <h3 data-translate="achievements">Achievements</h3>
+                    <div id="achievements-list" class="achievements-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
